@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>AftasFrontEnd</title>
+  <title>Aftas</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -10,4 +10,10 @@
 <body>
   <app-root></app-root>
 </body>
+<script>
+  var categorySelect = document.getElementById("categorySelect");
+  categorySelect.onchange = function() {
+    document.getElementById("categoryID").value = categorySelect.value;
+  };
+</script>
 </html>

@@ -1,0 +1,27 @@
+<div class="flex justify-center mt-10 pb-5">
+  <div class="podium-container">
+    <div class="podium-item first mx-1" *ngIf="TopTree.length >= 1">
+      <div class="rank-badge">1</div>
+      <div class="member-info">
+        <p class="name">{{ TopTree[0].member.name }} {{ TopTree[0].member.familyName }}</p>
+        <!-- <p class="points">{{ TopTree[0].points }} Points</p> -->
+      </div>
+    </div>
+
+    <div class="podium-item second mx-1" *ngIf="TopTree.length >= 2">
+      <div class="rank-badge">2</div>
+      <div class="member-info">
+        <p class="name">{{ TopTree[1].member.name }} {{ TopTree[1].member.familyName }}</p>
+        <!-- <p class="points">{{ TopTree[1].points }} Points</p> -->
+      </div>
+    </div>
+
+    <div class="podium-item third mx-1" *ngIf="TopTree.length >= 3">
+      <div class="rank-badge">3</div>
+      <div class="member-info">
+        <p class="name">{{ TopTree[2].member.name }} {{ TopTree[2].member.familyName }}</p>
+        <!-- <p class="points">{{ TopTree[2].points }} Points</p> -->
+      </div>
+    </div>
+  </div>
+</div>

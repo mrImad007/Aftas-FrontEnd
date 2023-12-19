@@ -1,0 +1,79 @@
+.podium-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  width: 900px;
+  height: 300px;
+}
+
+.podium-item {
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  text-align: center;
+  animation: rise 1s ease-in-out both;
+}
+
+.first {
+  left: 31%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 300px;
+  background-color: #0084ff;
+  border-radius: 10px;
+}
+
+.second {
+  left: 1%;
+  transform: translateX(-35%);
+  width: 120px;
+  height: 210px;
+  background-color: #d6da24;
+  border-radius: 10px;
+}
+
+.third {
+  left: 68%;
+  transform: translateX(-65%);
+  width: 120px;
+  height: 160px;
+  background-color: #1bcd30;
+  border-radius: 10px;
+}
+
+.rank-badge {
+  font-size: 3em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #000;
+  border-radius: 50%;
+  padding: 10px;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.member-info {
+  margin-top: 10px;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.points {
+  color: #ffffff;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

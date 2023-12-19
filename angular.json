@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Aftas-FrontEnd": {
+    "marjane": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -11,28 +11,31 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/aftas-front-end",
+            "outputPath": "dist/marjane",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@taiga-ui/icons/src",
+                "output": "assets/taiga-ui/icons"
+              }
             ],
             "styles": [
+              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+              "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
+              "node_modules/@taiga-ui/styles/taiga-ui-global.less",
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -51,9 +54,12 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -62,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Aftas-FrontEnd:build:production"
+              "browserTarget": "marjane:build:production"
             },
             "development": {
-              "buildTarget": "Aftas-FrontEnd:build:development"
+              "browserTarget": "marjane:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "Aftas-FrontEnd:build"
+            "browserTarget": "marjane:build"
           }
         },
         "test": {
@@ -98,6 +104,6 @@
     }
   },
   "cli": {
-    "analytics": "af6684ce-89ab-48fb-add9-7496baa2a1c3"
+    "analytics": "8ea2ebca-3116-48df-a239-0207ddac4f3d"
   }
 }
