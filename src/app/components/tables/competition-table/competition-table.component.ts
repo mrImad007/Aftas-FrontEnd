@@ -1,3 +1,4 @@
+import { Ranking } from 'src/app/Interfaces/Ranking';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -17,13 +18,12 @@ export class CompetitionTableComponent implements OnInit {
   public competitionForm!: FormGroup;
   public competitionAddMemberForm!: FormGroup;
   public currentPage = 1;
-  public itemsPerPage = 4;
+  public itemsPerPage = 2;
   public totalMembers = 0;
   public members: Member[] = [];
+  public competitions: Competition[] = [];
 
   constructor(private fb: FormBuilder, private competitionService: CompetitionService,private memberService: MemberService, private router: Router) {}
-
-  public competitions: Competition[] = [];
 
   newCompetition: Competition = {
     code: '',
@@ -60,10 +60,10 @@ export class CompetitionTableComponent implements OnInit {
       id: this.fb.control(null),
       code: this.fb.control('', [Validators.required]),
       date: this.fb.control('', [Validators.required]),
+      amount: this.fb.control('',[Validators.required]),
       startTime: this.fb.control({ hours: 0, minutes: 0 }, [Validators.required]),
       endTime: this.fb.control({ hours: 0, minutes: 0 }, [Validators.required]),
       numberOfParticipants: this.fb.control(0, [Validators.required]),
-      memberIds: this.fb.control([]),
       location: this.fb.control('', [Validators.required]),
     });
   }
@@ -71,20 +71,23 @@ export class CompetitionTableComponent implements OnInit {
   onAddMember(){
     const { competition_code, member_num } = this.competitionAddMemberForm.value;
     this.competitionService.registerMemberInCompetition({ member_num, competition_code }).subscribe(
-      (competition) => {
-        console.log('==================================== Member');
-        console.log(member_num);
-        console.log('==================================== Code');
-        console.log(competition_code);
-        console.log('====================================');
-        console.log(competition);
-        console.log('====================================');
+      (ranking) => {
+        console.log(ranking);
+        if(ranking){
         Swal.fire({
           title: 'Success!',
           text: 'Member added successfully.',
           icon: 'success',
           confirmButtonText: 'OK',
         });
+      }else{
+        Swal.fire({
+          title: 'Error!',
+          text: 'Member not added! Verify deadline of participants number',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      }
       }
     )
     this.competitionAddMemberForm.reset();
@@ -99,6 +102,7 @@ export class CompetitionTableComponent implements OnInit {
       endTime,
       numberOfParticipants,
       location,
+      amount,
     } = this.competitionForm.value;
   
     // Ensure startTime and endTime are defined
@@ -111,15 +115,15 @@ export class CompetitionTableComponent implements OnInit {
     const formattedStartTime = this.formatTime(startTime);
     const formattedEndTime = this.formatTime(endTime);
   
-    // this.newCompetition = {
-    //   code,
-    //   date,
-    //   amount,
-    //   startTime: formattedStartTime,
-    //   endTime: formattedEndTime,
-    //   numberOfParticipants,
-    //   location,
-    // };
+    this.newCompetition = {
+      code,
+      date,
+      amount,
+      startTime: formattedStartTime,
+      endTime: formattedEndTime,
+      numberOfParticipants,
+      location,
+    };
     console.log('====================================');
     console.log(this.newCompetition);
     console.log('====================================');
@@ -168,42 +172,46 @@ formatTime(time: { hours?: number, minutes?: number } | string): string {
 }
 
   
-  
+isPodiumVisible(competition: Competition): boolean {
+  const currentDate = new Date();
+  const Competition_date = new Date(competition.date)
 
-  getCompetitions() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
+  return Competition_date >= currentDate;
+}
 
-    this.competitionService.getAllCompetitions().subscribe(
-      (competitions : any) => {
-        this.competitions = competitions.slice(startIndex, endIndex);
-        console.log(this.competitions);
-        this.totalMembers = competitions.lenght;
+getCompetitions() {
+  this.competitionService
+    .getAllCompetitionsPagination(this.currentPage, this.itemsPerPage)
+    .subscribe(
+      (page: any) => {
+        this.competitions = page.content;
+        this.totalMembers = page.totalElements;
       },
       (error) => {
         console.error(error);
       }
     );
-  }
+}
 
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.getCompetitions();
-    }
-  }
 
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.getCompetitions();
-    }
+nextPage() {
+  if (this.currentPage < this.totalPages) {
+    this.currentPage++;
+    this.getCompetitions();
   }
+}
 
-  get totalPages(): number {
-    return Math.ceil(this.totalMembers / this.itemsPerPage);
+prevPage() {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+    this.getCompetitions();
   }
+}
+
+get totalPages(): number {
+  return Math.ceil(this.totalMembers / this.itemsPerPage);
+}
 
   getMembers() {
     this.memberService.getAllMembers().subscribe(

@@ -36,7 +36,7 @@ export class AddHuntingComponent implements OnInit {
   ngOnInit(): void {
     this.huntingForm = this.fb.group({
       competition_id: this.fb.control(null),
-      member_id: this.fb.control(0),
+      member_id: this.fb.control(0, Validators.required),
       fish_id: this.fb.control(null),
       numberOfFish: this.fb.control(1),
       averageWeight: this.fb.control(0),
@@ -104,7 +104,7 @@ export class AddHuntingComponent implements OnInit {
     );
     
   }
-  
+
   getMembers() {
     this.memberService.getAllMembers().subscribe(
       (members: any) => {

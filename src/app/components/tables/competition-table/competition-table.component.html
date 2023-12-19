@@ -2,8 +2,8 @@
   <form [formGroup]="competitionForm" class="p-4 md:p-5" (ngSubmit)="onSubmit()" style="margin-top: 25px;">
     <div class="grid gap-4 mb-4 grid-cols-2">
       <div class="col-span-2 sm:col-span-1">
-        <label for="code" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Code</label>
-        <input type="text" formControlName="code" id="code" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
+        <input type="text" formControlName="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
       </div>
       <div class="col-span-2 sm:col-span-1">
         <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date</label>
@@ -18,14 +18,11 @@
         <input type="time" formControlName="endTime" id="endTime" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
       </div>
       <div class="col-span-2 sm:col-span-1">
-        <label for="numberOfParticipants" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Participants</label>
-        <input type="number" formControlName="numberOfParticipants" id="numberOfParticipants" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
-      </div>
-      <div class="col-span-2 sm:col-span-1">
-        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
-        <input type="text" formControlName="location" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+        <label for="location" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
+        <input type="number" formControlName="amount" id="location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
       </div>
     </div>
+    
     <button type="submit" class="mt-3 text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
       <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
@@ -48,7 +45,7 @@
           <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">N° paticipants</th>
           <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Location</th>
           <!-- <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">status</th> -->
-          <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Actions</th>
+          <th class="px-6 py-3 border-b-2 border-gray-300 text-center leading-4 text-blue-500 tracking-wider">Actions</th>
         </tr>
       </thead>
       <tbody class="bg-white">
@@ -68,9 +65,9 @@
           <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ competition.location }}</td>
           <!-- <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ competition.status }}</td> -->
           <td class="px-6 py-4 flex justify-between text-right border-b border-gray-500 text-sm leading-5">
-            <!-- <app-popup *ngIf="competition.status === 'finished'" class="mx-1" name="Show Podium" color="blue" title="The Podium">
-              <app-podium [CompetitionId]="competition.id!"></app-podium>
-            </app-popup> -->
+            <app-popup *ngIf="isPodiumVisible(competition) " class="mx-1" name="Show Podium" color="blue" title="The Podium">
+              <app-podium [Competition_code]="competition.code!"></app-podium>
+            </app-popup>
              <button (click)="deleteCompetitionConfirmation(competition.code)"
               class="px-5 py-2 border-red-500 border text-red-500 rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">Delete</button> 
              <app-popup [isEditForm]="true" (populateUpdateForm)="populateAddMemberForm(competition)" name="Add Member" title="Add a member to competition" color="blue">
@@ -103,7 +100,7 @@
             Previous
           </button>
           <span class="relative inline-flex items-center px-4 py-2 border-t border-b border-gray-300 bg-white text-sm font-medium text-gray-700">
-            Page {{ currentPage }} of {{ totalPages }}
+            Page {{ currentPage }} 
           </span>
           <button (click)="nextPage()" [disabled]="currentPage === totalPages"
             class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">

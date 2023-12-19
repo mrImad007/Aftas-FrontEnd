@@ -9,18 +9,19 @@ import { RankingService } from 'src/app/services/Ranking/ranking-services.servic
 })
 export class PodiumComponent implements OnInit{
   public TopTree : Ranking[] = [];
-  @Input() CompetitionId! : number 
+  @Input() Competition_code! : string 
+  
 
   constructor(private rankingService : RankingService){}
 
   ngOnInit(): void {
-    this.getTopTree(this.CompetitionId);
+    this.getResults(this.Competition_code);
   }
 
-  getTopTree(id:number){
-    this.rankingService.getTopMembers(id).subscribe(
+  getResults(code:string){
+    this.rankingService.getTopMembers(code).subscribe(
       (topTree: any)=>{
-        this.TopTree = topTree.slice(0,3);
+        this.TopTree = topTree;
       }
     )
   }

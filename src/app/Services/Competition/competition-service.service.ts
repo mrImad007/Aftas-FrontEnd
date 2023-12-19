@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Competition } from '../../Interfaces/Competition';
 import { Member } from 'src/app/Interfaces/Member';
 import { Ranking } from 'src/app/Interfaces/Ranking';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,12 @@ export class CompetitionService {
   getAllCompetitions() {
     const headers = new HttpHeaders().set('Cache-Control', 'no-cache, no-store, must-revalidate');
     return this.httpClient.get(this.endPoint, { headers });
+  }
+
+  getAllCompetitionsPagination(page: number, size: number): Observable<any> {
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+
+    return this.httpClient.get<any>(`${this.endPoint}/pagination`, { params });
   }
 
   createCompetition(competition: Competition): Observable<Competition> {

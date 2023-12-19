@@ -1,10 +1,15 @@
 <div class="flex justify-center mt-10 pb-5">
   <div class="podium-container">
+    <div class="podium-item not-yet" *ngIf="TopTree.length == 0">
+      <div class="message">
+        <h2>No ranking yet</h2>
+      </div>
+    </div>
     <div class="podium-item first mx-1" *ngIf="TopTree.length >= 1">
       <div class="rank-badge">1</div>
       <div class="member-info">
         <p class="name">{{ TopTree[0].member.name }} {{ TopTree[0].member.familyName }}</p>
-        <!-- <p class="points">{{ TopTree[0].points }} Points</p> -->
+        <p class="points">{{ TopTree[0].score }} Points</p>
       </div>
     </div>
 
@@ -12,7 +17,7 @@
       <div class="rank-badge">2</div>
       <div class="member-info">
         <p class="name">{{ TopTree[1].member.name }} {{ TopTree[1].member.familyName }}</p>
-        <!-- <p class="points">{{ TopTree[1].points }} Points</p> -->
+        <p class="points">{{ TopTree[1].score }} Points</p>
       </div>
     </div>
 
@@ -20,7 +25,7 @@
       <div class="rank-badge">3</div>
       <div class="member-info">
         <p class="name">{{ TopTree[2].member.name }} {{ TopTree[2].member.familyName }}</p>
-        <!-- <p class="points">{{ TopTree[2].points }} Points</p> -->
+        <p class="points">{{ TopTree[2].score }} Points</p>
       </div>
     </div>
   </div>

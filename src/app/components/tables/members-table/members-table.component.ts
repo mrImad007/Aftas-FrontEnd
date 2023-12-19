@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Member } from '../../../Interfaces/Member';
 import { identityDocumentType } from 'src/app/Interfaces/identityDocumentType';
 import { MemberService } from 'src/app/services/Member/member-services.service';
 import { Router } from '@angular/router';
+import { response } from 'express';
 
 @Component({
   selector: 'app-members-table',
@@ -29,7 +30,7 @@ export class MembersTableComponent implements OnInit {
     name: '',
     familyName: '',
     nationality: '',
-    identiyNumber: '',
+    identityNumber: '',
     identityDocumentType: identityDocumentType.CIN,
     accessionDate: new Date()
   };
@@ -43,15 +44,13 @@ export class MembersTableComponent implements OnInit {
 
   private initializeForm() {
     this.memberForm = this.fb.group({
-      id: this.fb.control(null),
-      membershipNumber: this.fb.control('', [Validators.required]),
-      lastName: this.fb.control('', [Validators.required]),
-      firstName: this.fb.control('', [Validators.required]),
+      num: this.fb.control('', [Validators.required]),
+      familyName: this.fb.control('', [Validators.required]),
+      name: this.fb.control('', [Validators.required]),
       nationality: this.fb.control('', [Validators.required]),
       identityNumber: this.fb.control('', [Validators.required]),
-      identificationDocumentType: this.fb.control(identityDocumentType.CIN, [Validators.required]),
-      membershipDate: this.fb.control(new Date(), [Validators.required]),
-      competitionIds: this.fb.control([]),
+      identityDocumentType: this.fb.control(identityDocumentType.CIN, [Validators.required]),
+      accessionDate: this.fb.control(new Date(), [Validators.required]),
     });
   }
 
@@ -61,7 +60,7 @@ export class MembersTableComponent implements OnInit {
       name,
       familyName,
       nationality,
-      identiyNumber,
+      identityNumber,
       identityDocumentType,
       accessionDate,
     } = this.memberForm.value;
@@ -71,7 +70,7 @@ export class MembersTableComponent implements OnInit {
       name,
       familyName,
       nationality,
-      identiyNumber,
+      identityNumber,
       identityDocumentType,
       accessionDate,
     };
@@ -81,25 +80,33 @@ export class MembersTableComponent implements OnInit {
         this.members.push(member);
         console.log(member);
         this.memberForm.reset();
-
-        Swal.fire({
-          title: 'Success!',
-          text: 'Member created successfully.',
-          icon: 'success',
-          confirmButtonText: 'OK',
-        });
+        if(member != null){
+          Swal.fire({
+            title: 'Success!',
+            text: 'Member created successfully.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+          });
+        }else{
+          Swal.fire({
+            title: 'Error!',
+            text: 'Member Already Existing.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
+        }
       },
       (error) => {
         console.error('Error creating member:', error);
         Swal.fire({
           title: 'Error!',
-          text: 'Failed to create member. Please try again.',
+          text: 'Failed to create member.',
           icon: 'error',
           confirmButtonText: 'OK',
         });
       }
     );
-    this.router.navigate(['/Dashboard']);
+    this.router.navigate(['/Members']);
   }
 
   getMembers() {
@@ -143,6 +150,40 @@ export class MembersTableComponent implements OnInit {
 
   get totalPages(): number {
     return Math.ceil(this.totalMembers / this.itemsPerPage);
+  }
+
+  deleteMember(num: string): void{
+    console.log("Member num : "+num);
+    this.memberService.deleteMember(num).subscribe(
+      (response) => {
+        console.log("response: "+response);
+      }
+    );
+  }
+
+  deleteMemberConfirmation(num: string): void {
+    if (num !== undefined) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteMember(num);
+          Swal.fire('Deleted!', 'Member has been deleted.', 'success');
+          this.router.navigate(['/Members']);
+        } else {
+          console.log('Delete canceled by the user.');
+        }
+      });
+      this.router.navigate(['/Members']);
+    } else {
+      console.error('Cannot delete Member without a valid ID.');
+    }
   }
 
 }

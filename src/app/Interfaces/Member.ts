@@ -7,6 +7,6 @@ export interface Member {
   accessionDate: Date
   nationality: string
   identityDocumentType: identityDocumentType,
-  identiyNumber: string
+  identityNumber: string
   }
   

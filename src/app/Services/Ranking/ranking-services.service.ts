@@ -11,8 +11,8 @@ export class RankingService {
 
   constructor(private http: HttpClient) {}
 
-  getTopMembers(id : number): Observable<Ranking[]> {
-    const url = `${this.endPoint}/highest-score/${id}`;
+  getTopMembers(id : string): Observable<Ranking[]> {
+    const url = `${this.endPoint}/result/${id}`;
     return this.http.get<Ranking[]>(url);
   }
 

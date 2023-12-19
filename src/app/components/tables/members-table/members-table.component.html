@@ -2,21 +2,12 @@
     <form [formGroup]="memberForm" class="p-4 md:p-5" (ngSubmit)="onSubmit()" style="margin-top: 25px;">
       <div class="grid gap-4 mb-4 grid-cols-2">
         <div class="col-span-2 sm:col-span-1">
-            <label for="membershipNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Membership Number</label>
-            <div class="flex items-center">
-              <input readonly type="text" formControlName="membershipNumber" id="membershipNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
-              <button type="button" class="ml-2 text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2" (click)="generateMembershipNumber()">
-                Generate
-              </button>
-            </div>
-          </div>
-        <div class="col-span-2 sm:col-span-1">
-          <label for="firstName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">first Name</label>
-          <input type="text" formControlName="firstName" id="firstName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">first Name</label>
+          <input type="text" formControlName="name" id="firstName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
         </div>
         <div class="col-span-2 sm:col-span-1">
             <label for="lastName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-            <input type="text" formControlName="lastName" id="lastName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+            <input type="text" formControlName="familyName" id="lastName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
         </div>
         <div class="col-span-2 sm:col-span-1">
             <label for="nationality" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">nationality</label>
@@ -28,7 +19,7 @@
         </div> 
         <div class="col-span-2 sm:col-span-1">
             <label for="identificationDocumentType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Document Type</label>
-            <select formControlName="identificationDocumentType" id="identificationDocumentType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+            <select formControlName="identityDocumentType" id="identificationDocumentType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
               <option value="CIN">CIN</option>
               <option value="PASSPORT">Passport</option>
               <option value="CARTE_RESIDENCE">Carte de Résidence</option>
@@ -49,14 +40,15 @@
       <table class="min-w-full">
         <thead>
           <tr>
-            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">ID</th>
-            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Membership Number</th>
+
+            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Num</th>
             <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Last Name</th>
             <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">firstName</th>
             <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">nationality</th>
             <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">identityNumber</th>
-            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">identificationDocumentType</th>
+            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Id type</th>
             <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">membershipDate</th>
+            <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">Action</th>
           </tr>
         </thead>
         <tbody class="bg-white">
@@ -68,13 +60,13 @@
                 </div>
               </div>
             </td>
-
             <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ member.familyName }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ member.name }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ member.nationality }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ member.identiyNumber }}</td>
+            <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ member.identityNumber }}</td>
             <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ member.identityDocumentType }}</td>
-            <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ member.accessionDate }}</td>            
+            <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ member.accessionDate | date: 'yyyy - MM - dd'}}</td> 
+            <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5"><button class="px-5 py-2 border-red-500 border text-red-500 rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none" type="submit" (click)="deleteMemberConfirmation(member.identityNumber)">Delete Mumber</button></td>            
           </tr>
         </tbody>
       </table>
