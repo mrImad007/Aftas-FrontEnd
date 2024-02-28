@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Competition } from 'src/app/Interfaces/Competition';
-import { Fish } from 'src/app/Interfaces/Fish';
-import { Member } from 'src/app/Interfaces/Member';
+import { Competition } from 'src/app/Models/Competition';
+import { Fish } from 'src/app/Models/Fish';
+import { Member } from 'src/app/Models/Member';
 import Swal from 'sweetalert2';
 import { CompetitionService } from 'src/app/services/Competition/competition-service.service';
-import { FishService } from 'src/app/services/Fish/fish-service.service';
 import { MemberService } from 'src/app/services/Member/member-services.service';
 import { Router } from '@angular/router';
-import { HuntingService } from 'src/app/services/Hunting/hunting-service.service';
+import { FishService } from 'src/app/Services/Fish/fish-service.service';
+import { HuntingService } from 'src/app/Services/Hunting/hunting-service.service';
 
 @Component({
   selector: 'app-add-hunting',

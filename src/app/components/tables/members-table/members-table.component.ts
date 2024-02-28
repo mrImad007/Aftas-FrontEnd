@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { Member } from '../../../Interfaces/Member';
-import { identityDocumentType } from 'src/app/Interfaces/identityDocumentType';
+import { Member } from '../../../Models/Member';
+import { identityDocumentType } from 'src/app/Models/identityDocumentType';
 import { MemberService } from 'src/app/services/Member/member-services.service';
 import { Router } from '@angular/router';
 import { response } from 'express';

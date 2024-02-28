@@ -8,7 +8,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,11 +24,18 @@ import { MembersTableComponent } from './components/tables/members-table/members
 import { AddHuntingComponent } from './components/add-hunting/add-hunting.component';
 import { PodiumComponent } from './components/podium/podium.component';
 import { MembersComponent } from './pages/members/members.component';
+import { LoginComponentComponent } from './components/login-component/login-component.component';
+import { HeadersInterceptor } from './Config/Interceptor/headers-interceptor.interceptor';
+import { AuthGuard } from './Config/guards/auth.guard';
+import { AdminGuardGuard } from './Config/guards/roles/admin-guard.guard';
+HeadersInterceptor
+
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'Dashboard', component: AdminDashboardComponent },
-  { path: 'Members' , component: MembersComponent}
+  { path: '', component: HomeComponent, canActivate:[AuthGuard] },
+  { path: 'Dashboard', component: AdminDashboardComponent, canActivate:[AuthGuard,AdminGuardGuard]},
+  { path: 'Members' , component: MembersComponent, canActivate:[AuthGuard]},
+  { path: 'form' , component: LoginComponentComponent},
 ];
 
 @NgModule({
@@ -44,6 +51,7 @@ const appRoutes: Routes = [
     AddHuntingComponent,
     PodiumComponent,
     MembersComponent,
+    LoginComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +66,15 @@ const appRoutes: Routes = [
     TuiAlertModule,
   ],
   exports: [RouterModule],
-  providers: [{ provide: TUI_SANITIZER, useClass: NgDompurifySanitizer }],
+  providers: [
+    { provide: TUI_SANITIZER,
+      useClass: NgDompurifySanitizer 
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HeadersInterceptor,
+      multi: true
+    },],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

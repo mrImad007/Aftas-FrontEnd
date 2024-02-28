@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Ranking } from 'src/app/Interfaces/Ranking';
+import { Ranking } from 'src/app/Models/Ranking';
 import { RankingService } from 'src/app/services/Ranking/ranking-services.service';
 
 @Component({

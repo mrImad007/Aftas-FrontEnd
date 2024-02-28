@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from './services/auth/authentication.service';
+import { AuthenticationService } from '../../Services/auth/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,11 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    // Check if the user is logged in
-    if (this.authService.isLoggedIn) {
-      return true; // Allow access to the route
+    if (this.authService.isLoggedIn$) {
+      console.log('inside the auth guard');
+      return true; 
     } else {
-      // Redirect to the login page if not logged in
-      return this.router.createUrlTree(['/login']);
+      return this.router.navigate(['/form']);
     }
   }
 }

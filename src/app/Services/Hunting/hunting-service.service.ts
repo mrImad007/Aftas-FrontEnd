@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Hunting } from 'src/app/Interfaces/Hunting';
+import { Hunting } from 'src/app/Models/Hunting';
 
 @Injectable({
   providedIn: 'root'

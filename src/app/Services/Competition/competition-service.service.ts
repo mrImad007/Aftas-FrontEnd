@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Competition } from '../../Interfaces/Competition';
-import { Member } from 'src/app/Interfaces/Member';
-import { Ranking } from 'src/app/Interfaces/Ranking';
+import { Competition } from '../../Models/Competition';
+import { Member } from 'src/app/Models/Member';
+import { Ranking } from 'src/app/Models/Ranking';
 
 
 @Injectable({

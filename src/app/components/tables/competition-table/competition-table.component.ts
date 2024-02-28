@@ -1,11 +1,11 @@
-import { Ranking } from 'src/app/Interfaces/Ranking';
+import { Ranking } from 'src/app/Models/Ranking';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CompetitionService } from 'src/app/services/Competition/competition-service.service';
-import { Competition } from '../../../Interfaces/Competition';
+import { Competition } from '../../../Models/Competition';
 import { MemberService } from 'src/app/services/Member/member-services.service';
-import { Member } from 'src/app/Interfaces/Member';
+import { Member } from 'src/app/Models/Member';
 import { Router } from '@angular/router';
 
 @Component({
