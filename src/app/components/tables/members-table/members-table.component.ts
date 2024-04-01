@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, NonNullableFormBuilder, Validators } from '@ang
 import Swal from 'sweetalert2';
 import { Member } from '../../../Models/Member';
 import { identityDocumentType } from 'src/app/Models/identityDocumentType';
-import { MemberService } from 'src/app/services/Member/member-services.service';
+import { MemberService } from '../../../Services/Member/member-services.service';
 import { Router } from '@angular/router';
 import { response } from 'express';
 

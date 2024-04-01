@@ -28,6 +28,8 @@ import { LoginComponentComponent } from './components/login-component/login-comp
 import { HeadersInterceptor } from './Config/Interceptor/headers-interceptor.interceptor';
 import { AuthGuard } from './Config/guards/auth.guard';
 import { AdminGuardGuard } from './Config/guards/roles/admin-guard.guard';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
+import { UsersTableComponent } from './components/tables/users-table/users-table.component';
 HeadersInterceptor
 
 
@@ -35,7 +37,8 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate:[AuthGuard] },
   { path: 'Dashboard', component: AdminDashboardComponent, canActivate:[AuthGuard,AdminGuardGuard]},
   { path: 'Members' , component: MembersComponent, canActivate:[AuthGuard]},
-  { path: 'form' , component: LoginComponentComponent},
+  { path: 'login' , component: LoginComponentComponent},
+  { path: 'users' , component: UsersTableComponent,  canActivate:[AuthGuard,AdminGuardGuard]},
 ];
 
 @NgModule({
@@ -51,7 +54,9 @@ const appRoutes: Routes = [
     AddHuntingComponent,
     PodiumComponent,
     MembersComponent,
-    LoginComponentComponent
+    LoginComponentComponent,
+    AuthPageComponent,
+    UsersTableComponent
   ],
   imports: [
     BrowserModule,
